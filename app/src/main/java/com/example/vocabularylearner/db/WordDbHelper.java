@@ -247,4 +247,42 @@ public class WordDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    /**
+     * 根据首字母和熟悉度获取单词列表
+     */
+    public List<Word> getWordsByLetterAndFamiliarity(String letter, boolean isFamiliar) {
+        List<Word> words = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                TABLE_WORDS,
+                null,
+                COLUMN_FIRST_LETTER + " = ? AND " + COLUMN_FAMILIAR + " = ?",
+                new String[]{letter.toUpperCase(), isFamiliar ? "1" : "0"},
+                null, null,
+                COLUMN_ENGLISH + " ASC" // 按字母顺序排序
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                Word word = new Word();
+                word.setId(cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID)));
+                word.setEnglish(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ENGLISH)));
+                word.setPhonetic(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONETIC)));
+                word.setChinese(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CHINESE)));
+                word.setExample(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXAMPLE)));
+                word.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_FAVORITE)) == 1);
+                word.setFamiliar(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_FAMILIAR)) == 1);
+
+                words.add(word);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return words;
+    }
+
+
 }

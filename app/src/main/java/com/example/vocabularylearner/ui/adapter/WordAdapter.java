@@ -43,38 +43,37 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         holder.tvEnglish.setText(word.getEnglish());
         holder.tvPhonetic.setText(word.getPhonetic());
         holder.tvChinese.setText(word.getChinese());
-        
-        // 控制中文显示/隐藏
-        holder.tvChinese.setVisibility(isChineseVisible ? View.VISIBLE : View.GONE);
 
-        // 设置收藏状态
-        holder.btnFavorite.setImageResource(word.isFavorite() 
-                ? R.drawable.ic_favorite 
-                : R.drawable.ic_favorite_border);
+        // 控制中文显示/隐藏：
+        // 1. 如果设置为显示中文，则全部显示
+        // 2. 如果设置为隐藏中文，则只隐藏未熟悉的单词的中文
+        if (isChineseVisible) {
+            holder.tvChinese.setVisibility(View.VISIBLE);
+        } else {
+            // 未熟悉的单词隐藏中文，已熟悉的单词显示中文
+            holder.tvChinese.setVisibility(word.isFamiliar() ? View.VISIBLE : View.GONE);
+        }
 
-        // 设置熟悉度状态
-        holder.btnFamiliar.setImageResource(word.isFamiliar() 
-                ? R.drawable.ic_familiar 
-                : R.drawable.ic_unfamiliar);
+        // 设置熟悉度状态（使用加号和对勾图标）
+        holder.btnFamiliar.setImageResource(word.isFamiliar()
+                ? R.drawable.ic_familiar  // 对勾图标
+                : R.drawable.ic_plus);    // 加号图标
 
-        // 收藏按钮点击事件
-        holder.btnFavorite.setOnClickListener(v -> {
-            word.setFavorite(!word.isFavorite());
-            holder.btnFavorite.setImageResource(word.isFavorite() 
-                    ? R.drawable.ic_favorite 
-                    : R.drawable.ic_favorite_border);
-            if (familiarityChangeListener != null) {
-                familiarityChangeListener.onFavoriteChange(word, word.isFavorite());
-            }
-        });
+        // 移除收藏按钮相关代码...
 
         // 熟悉度按钮点击事件
         holder.btnFamiliar.setOnClickListener(v -> {
             boolean newState = !word.isFamiliar();
             word.setFamiliar(newState);
-            holder.btnFamiliar.setImageResource(newState 
-                    ? R.drawable.ic_familiar 
-                    : R.drawable.ic_unfamiliar);
+            holder.btnFamiliar.setImageResource(newState
+                    ? R.drawable.ic_familiar
+                    : R.drawable.ic_plus);
+
+            // 更新中文显示状态（因为熟悉度变化会影响中文是否显示）
+            if (!isChineseVisible) {
+                holder.tvChinese.setVisibility(newState ? View.VISIBLE : View.GONE);
+            }
+
             if (familiarityChangeListener != null) {
                 familiarityChangeListener.onFamiliarityChange(word, newState);
             }

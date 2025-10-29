@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 
 public class WordDetailActivity extends AppCompatActivity {
     private TextView tvEnglish, tvPhonetic, tvChinese, tvExample;
-    private ImageButton btnFavorite, btnFamiliar, btnBack;
+    private ImageButton  btnFamiliar, btnBack;
     private WordDbHelper dbHelper;
     private long wordId;
     private Word currentWord;
@@ -42,7 +42,7 @@ public class WordDetailActivity extends AppCompatActivity {
         tvPhonetic = findViewById(R.id.tv_detail_phonetic);
         tvChinese = findViewById(R.id.tv_detail_chinese);
         tvExample = findViewById(R.id.tv_detail_example);
-        btnFavorite = findViewById(R.id.btn_detail_favorite);
+//        btnFavorite = findViewById(R.id.btn_detail_favorite);
         btnFamiliar = findViewById(R.id.btn_detail_familiar);
         btnBack = findViewById(R.id.btn_back);
 
@@ -52,18 +52,6 @@ public class WordDetailActivity extends AppCompatActivity {
         // 返回按钮点击事件
         btnBack.setOnClickListener(v -> finish());
 
-        // 收藏按钮点击事件
-        btnFavorite.setOnClickListener(v -> {
-            if (currentWord != null) {
-                boolean newState = !currentWord.isFavorite();
-                currentWord.setFavorite(newState);
-                updateFavoriteUI();
-                
-                executorService.execute(() -> {
-                    dbHelper.updateWordFavorite(currentWord.getId(), newState);
-                });
-            }
-        });
 
         // 熟悉度按钮点击事件
         btnFamiliar.setOnClickListener(v -> {
@@ -89,8 +77,6 @@ public class WordDetailActivity extends AppCompatActivity {
                     tvPhonetic.setText(currentWord.getPhonetic());
                     tvChinese.setText(currentWord.getChinese());
                     tvExample.setText(currentWord.getExample());
-                    
-                    updateFavoriteUI();
                     updateFamiliarUI();
                 } else {
                     finish();
@@ -99,13 +85,6 @@ public class WordDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void updateFavoriteUI() {
-        if (currentWord != null) {
-            btnFavorite.setImageResource(currentWord.isFavorite() 
-                    ? R.drawable.ic_favorite 
-                    : R.drawable.ic_favorite_border);
-        }
-    }
 
     private void updateFamiliarUI() {
         if (currentWord != null) {

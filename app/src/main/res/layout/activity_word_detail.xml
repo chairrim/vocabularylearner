@@ -69,23 +69,14 @@
         android:textColor="@color/gray" />
 
     <!-- 使用LinearLayout的weight属性实现按钮居中 -->
+    <!-- 找到原来的两个按钮布局，替换为只保留熟悉度按钮 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:weightSum="2">
-
-        <ImageButton
-            android:id="@+id/btn_detail_favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="收藏"
-            android:padding="16dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_favorite_border" />
+        android:weightSum="1">
 
         <ImageButton
             android:id="@+id/btn_detail_familiar"
@@ -95,7 +86,7 @@
             android:contentDescription="熟悉度"
             android:padding="16dp"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_unfamiliar" />
+            android:src="@drawable/ic_plus" />
     </LinearLayout>
 
 </LinearLayout>

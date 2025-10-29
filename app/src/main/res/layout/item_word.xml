@@ -36,21 +36,14 @@
                 android:orientation="horizontal"
                 android:spacing="8dp">
 
+                <!-- 只保留熟悉度按钮，去掉收藏按钮 -->
                 <ImageButton
                     android:id="@+id/btn_familiar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="熟悉度"
-                    android:src="@drawable/ic_unfamiliar" />
-
-                <ImageButton
-                    android:id="@+id/btn_favorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="收藏"
-                    android:src="@drawable/ic_favorite_border" />
+                    android:src="@drawable/ic_plus" /> <!-- 默认为加号图标 -->
             </LinearLayout>
         </LinearLayout>
 
