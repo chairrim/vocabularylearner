@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 定义状态栏高度属性 -->
+    <attr name="StatusBarHeight" format="dimension" />
+</resources>

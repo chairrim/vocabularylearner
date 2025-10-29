@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/btn_import2"
+        android:title="导入"
+        android:icon="@android:drawable/ic_menu_upload"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_export2"
+        android:title="导出"
+        android:icon="@android:drawable/ic_menu_save"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_clear2"
+        android:title="清除数据"
+        android:icon="@android:drawable/ic_menu_delete"
+        app:showAsAction="never"/>
+</menu>

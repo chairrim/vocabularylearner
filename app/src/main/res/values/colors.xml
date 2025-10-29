@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FFFF0000</color>
+    <color name="gray">#FF888888</color>
+    <color name="light_gray">#FFEEEEEE</color>
+    <color name="green">#FF00C853</color>
+    <color name="card_background">#FFF5F5F5</color>
+
+
+    <!-- 卡片颜色 -->
+
+
+
+    <!-- 紫色系列（主色调） -->
+    <color name="purple_900">#1A0061</color> <!-- 主色容器色（深色） -->
+
+    <!-- 青色/蓝绿色系列（辅助色调） -->
+    <color name="teal_400">#00BFA5</color> <!-- 辅助色 -->
+    <color name="teal_800">#00695C</color> <!-- 辅助色容器色（深色） -->
+
+    <!-- 背景与卡片色 -->
+    <color name="background_deep_purple">#2A0F55</color> <!-- 深紫色背景 -->
+    <color name="card_light_purple">#FFFFFF</color> <!-- 卡片默认色 -->
+    <color name="card_selected_blue">#1E88E5</color> <!-- 选中卡片色 -->
+
+    <!-- 文本色 -->
+    <color name="text_primary">#6750A4</color> <!-- 主要文本（白色，适配深色背景） -->
+    <color name="text_secondary">#6750A4</color> <!-- 次要文本（浅紫色） -->
+
+</resources>

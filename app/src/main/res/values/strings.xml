@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">单词学习</string>
+    <string name="grant_permission">授予存储权限</string>
+    <string name="upload_file">上传单词表</string>
+    <string name="no_words">暂无单词，请上传单词表</string>
+    <string name="file_imported">文件导入成功</string>
+    <string name="import_error">导入失败，请检查文件格式</string>
+    <string name="permission_denied">权限被拒绝，无法上传文件</string>
+    <string name="permission_required">需要存储权限才能使用此功能</string>
+    <string name="chinese_meaning">中文释义</string>
+    <string name="back">返回</string>
+</resources>
+    

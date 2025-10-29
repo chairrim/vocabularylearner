@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 进度条背景（未填充部分） -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="#f1eef9" /> <!-- 浅灰色背景 -->
+            <corners android:radius="4dp" /> <!-- 背景圆角（与高度一致，确保完全圆角） -->
+        </shape>
+    </item>
+
+    <!-- 进度条填充部分（已完成部分） -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="@color/purple_500" /> <!-- 紫色进度 -->
+                <corners android:radius="4dp" /> <!-- 进度部分圆角 -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- 基础应用主题（Material3 日夜模式带ActionBar） -->
+    <style name="Theme.VocabularyLearner" parent="Theme.Material3.Dark.NoActionBar">
+
+        <!-- 关键：让状态栏与 Toolbar 同色 -->
+        <item name="android:statusBarColor">@color/purple_500</item>
+
+        <!-- 确保状态栏文字图标可见（紫色背景配白色文字） -->
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- 主色调配置 -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryContainer">@color/purple_900</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- 辅助色调配置 -->
+        <item name="colorSecondary">@color/teal_400</item>
+        <item name="colorSecondaryContainer">@color/teal_800</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- 背景与表面色 -->
+        <item name="colorBackgroundFloating">@color/background_deep_purple</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorSurface">@color/card_light_purple</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <!-- 状态栏与导航栏（Android 12+） -->
+        <item name="android:navigationBarColor" tools:targetApi="l">@color/background_deep_purple</item>
+
+        <!-- 全局文本样式 -->
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.VocabularyLearner.Headline</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.VocabularyLearner.Body</item>
+
+        <!-- 全局默认形状 -->
+        <item name="shapeAppearance">@style/ShapeAppearance.VocabularyLearner.Default</item>
+    </style>
+
+    <!-- 全局默认形状样式 -->
+    <style name="ShapeAppearance.VocabularyLearner.Default" parent="ShapeAppearance.Material3.Corner.Full">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <!-- 字母卡片专用形状（基于Material3中等组件） -->
+    <style name="ShapeAppearance.LetterCard" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item> <!-- 卡片圆角 -->
+    </style>
+
+    <!-- 选中状态卡片形状（可选） -->
+    <style name="ShapeAppearance.LetterCard.Selected" parent="ShapeAppearance.LetterCard">
+        <item name="cornerSize">20dp</item> <!-- 选中时圆角稍大，增强交互感 -->
+    </style>
+
+    <!-- 文本样式定义 -->
+    <style name="TextAppearance.VocabularyLearner.Headline" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="TextAppearance.VocabularyLearner.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+</resources>
