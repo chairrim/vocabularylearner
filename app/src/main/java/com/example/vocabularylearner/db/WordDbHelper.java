@@ -284,5 +284,42 @@ public class WordDbHelper extends SQLiteOpenHelper {
         return words;
     }
 
+    /**
+ * 获取所有单词
+ */
+public List<Word> getAllWords() {
+    List<Word> words = new ArrayList<>();
+    SQLiteDatabase db = this.getReadableDatabase();
+
+    Cursor cursor = db.query(
+            TABLE_WORDS,
+            null, // 所有列
+            null, // 没有 WHERE 子句
+            null, // 没有 WHERE 参数
+            null, // 没有 GROUP BY
+            null, // 没有 HAVING
+            COLUMN_ENGLISH + " ASC" // 按英文单词排序
+    );
+
+    if (cursor.moveToFirst()) {
+        do {
+            Word word = new Word();
+            word.setId(cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID)));
+            word.setEnglish(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ENGLISH)));
+            word.setPhonetic(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONETIC)));
+            word.setChinese(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CHINESE)));
+            word.setExample(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXAMPLE)));
+            word.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_FAVORITE)) == 1);
+            word.setFamiliar(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_FAMILIAR)) == 1);
+            words.add(word);
+        } while (cursor.moveToNext());
+    }
+
+    cursor.close();
+    db.close();
+    return words;
+}
+
+
 
 }

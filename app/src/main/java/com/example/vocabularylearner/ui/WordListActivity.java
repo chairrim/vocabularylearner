@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.vocabularylearner.R;
@@ -48,15 +50,17 @@ public class WordListActivity extends AppCompatActivity {
         updateToggleButtonState();
 
         // 设置按钮点击事件
+        // 替换 btnToggleChinese 的点击事件处理
         btnToggleChinese.setOnClickListener(v -> {
             isChineseVisible = !isChineseVisible;
             updateToggleButtonState();
-            // 更新所有fragment的中文显示状态
-            for (WordListFragment fragment : fragments) {
-                if (fragment != null) {
-                    fragment.setChineseVisible(isChineseVisible);
+
+            // 通过 FragmentManager 获取当前显示的 fragments 并更新状态
+            getSupportFragmentManager().getFragments().forEach(fragment -> {
+                if (fragment instanceof WordListFragment) {
+                    ((WordListFragment) fragment).setChineseVisible(isChineseVisible);
                 }
-            }
+            });
         });
 
         // 初始化ViewPager2和TabLayout

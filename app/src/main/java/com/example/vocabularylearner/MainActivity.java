@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +37,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends AppCompatActivity {
     private static final int READ_EXCEL_REQUEST_CODE = 1001;
+
+    private static final int EXPORT_FILE_REQUEST_CODE = 200;
     private static final int STORAGE_PERMISSION_REQUEST = 1002;
+
+    // 在类成员变量区域添加
+    private ActivityResultLauncher<Intent> exportFileLauncher;
 
     private RecyclerView letterRecyclerView;
     private LetterAdapter letterAdapter;
@@ -50,7 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
+        exportFileLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri uri = result.getData().getData();
+                        if (uri != null) {
+                            exportWordsToFile(uri);
+                        }
+                    }
+                }
+        );
         // 初始化
         dbHelper = new WordDbHelper(this);
         executorService = Executors.newSingleThreadExecutor();
@@ -150,11 +167,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        
+
         if (requestCode == READ_EXCEL_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
             if (uri != null) {
                 importExcelFile(uri);
+            }
+        } else if (requestCode == EXPORT_FILE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            Uri uri = data.getData();
+            if (uri != null) {
+                // 在后台线程执行导出操作
+                exportWordsToFile(uri);
             }
         }
     }
@@ -235,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (itemId == R.id.action_export2) {
             Toast.makeText(this, "执行导出操作", Toast.LENGTH_SHORT).show();
             // 此处添加导出逻辑（如写入文件、保存数据等）
+            exportWords();
             return true;
         } else if (itemId == R.id.action_clear2) {
             showClearConfirmDialog();
@@ -264,6 +288,42 @@ public class MainActivity extends AppCompatActivity {
                 showToast("所有单词数据已清空");
                 loadLetterStats(); // 刷新字母统计
             });
+        });
+    }
+    // 修改 exportWords 方法
+    private void exportWords() {
+        // 检查是否有单词可以导出
+        List<Word> allWords = dbHelper.getAllWords();
+        if (allWords.isEmpty()) {
+            showToast("没有单词可以导出");
+            return;
+        }
+
+        // 使用存储访问框架创建文件
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        intent.putExtra(Intent.EXTRA_TITLE, "vocabulary_export.xlsx");
+
+        exportFileLauncher.launch(intent); // 使用新的 API
+    }
+
+    // 执行实际的导出操作
+    private void exportWordsToFile(Uri uri) {
+        executorService.execute(() -> {
+            try {
+                List<Word> allWords = dbHelper.getAllWords();
+                ExcelUtils.exportWordsToExcel(MainActivity.this, allWords, uri);
+
+                runOnUiThread(() -> {
+                    showToast("单词表导出成功");
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    showToast("导出失败: " + e.getMessage());
+                });
+            }
         });
     }
 }

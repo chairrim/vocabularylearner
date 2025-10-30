@@ -22,23 +22,23 @@
         android:padding="16dp"
         android:weightSum="1">
 
+        <!-- 替换原有按钮布局 -->
+
         <TextView
             android:id="@+id/tv_letter_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_width="226dp"
+            android:layout_height="36dp"
+            android:layout_weight="0.5"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- 替换原有按钮布局 -->
         <Button
             android:id="@+id/btn_toggle_chinese"
-            android:layout_width="0dp"
-            android:layout_height="100px"
-            android:layout_weight="0.1"
-            android:backgroundTint="?attr/colorPrimary"
+            android:layout_width="119dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:text="隐藏中文"
-        android:textColor="@color/white" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <!-- Tab布局 -->
