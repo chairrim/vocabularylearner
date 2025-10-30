@@ -30,14 +30,15 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <!-- 替换原有按钮布局 -->
         <Button
             android:id="@+id/btn_toggle_chinese"
             android:layout_width="0dp"
             android:layout_height="100px"
             android:layout_weight="0.1"
             android:backgroundTint="?attr/colorPrimary"
-            android:text="隐藏"
-            android:textColor="@color/white" />
+            android:text="隐藏中文"
+        android:textColor="@color/white" />
     </LinearLayout>
 
     <!-- Tab布局 -->

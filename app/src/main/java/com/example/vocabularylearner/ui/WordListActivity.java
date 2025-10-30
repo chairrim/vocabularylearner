@@ -88,14 +88,10 @@ public class WordListActivity extends AppCompatActivity {
      */
     private void updateToggleButtonState() {
         if (isChineseVisible) {
-            // 显示状态，使用"隐藏中文"文本和闭眼图标
-            btnToggleChinese.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_eye_hide, 0, 0, 0);
+            // 显示状态，按钮文本改为"隐藏中文"
             btnToggleChinese.setText("隐藏中文");
         } else {
-            // 隐藏状态，使用"显示中文"文本和睁眼图标
-            btnToggleChinese.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_eye_show, 0, 0, 0);
+            // 隐藏状态，按钮文本改为"显示中文"
             btnToggleChinese.setText("显示中文");
         }
     }

@@ -94,6 +94,7 @@ public class ExcelUtils {
                 Cell phoneticCell = row.getCell(1);
                 Cell chineseCell = row.getCell(2);
                 Cell exampleCell = row.getCell(3);
+                Cell familiarCell = row.getCell(4);
 
                 if (englishCell == null) {
                     continue; // 跳过空行
@@ -103,9 +104,10 @@ public class ExcelUtils {
                 String phonetic = phoneticCell != null ? getCellValue(phoneticCell).trim() : "";
                 String chinese = chineseCell != null ? getCellValue(chineseCell).trim() : "";
                 String example = exampleCell != null ? getCellValue(exampleCell).trim() : "";
+                String familiar = familiarCell != null ? getCellValue(familiarCell).trim() : "";
 
                 if (!english.isEmpty()) {
-                    words.add(new Word(english, phonetic, chinese, example));
+                    words.add(new Word(english, phonetic, chinese, example,"1".equals( familiar)));
                 }
             }
         } finally {

@@ -14,13 +14,13 @@ public class Word implements Parcelable {
 
     public Word() {}
 
-    public Word(String english, String phonetic, String chinese, String example) {
+    public Word(String english, String phonetic, String chinese, String example,boolean isFamiliar) {
         this.english = english;
         this.phonetic = phonetic;
         this.chinese = chinese;
         this.example = example;
         this.isFavorite = false;
-        this.isFamiliar = false;
+        this.isFamiliar = isFamiliar;
     }
 
     protected Word(Parcel in) {
