@@ -1,6 +1,7 @@
 package com.example.vocabularylearner.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,9 +106,29 @@ public class WordListFragment extends Fragment {
                 });
 
                 // 设置单词点击监听器
+//                wordAdapter.setOnItemClickListener(word -> {
+//                    Intent intent = new Intent(requireContext(), WordDetailActivity.class);
+//                    intent.putExtra("word_id", word.getId());
+//                    startActivity(intent);
+//                });
+                // 设置单词点击监听器
+                // 在loadWordsByLetterAndFamiliarity方法中替换原有的点击监听器部分
+                // 设置单词点击监听器
+//                wordAdapter.setOnItemClickListener(word -> {
+//                    String baseUrl = "https://fanyi.baidu.com/m/trans?aldtype=85&from=en&to=zh&query=";
+//                    String url = baseUrl + word.getEnglish(); // 使用单词替换query参数值
+//
+//                    Intent intent = new Intent(Intent.ACTION_VIEW);
+//                    intent.setData(Uri.parse(url));
+//                    startActivity(intent);
+//                });
+                // 替换现有的点击监听器代码
                 wordAdapter.setOnItemClickListener(word -> {
-                    Intent intent = new Intent(requireContext(), WordDetailActivity.class);
-                    intent.putExtra("word_id", word.getId());
+                    String baseUrl = "https://fanyi.baidu.com/m/trans?aldtype=85&from=en&to=zh&query=";
+                    String url = baseUrl + word.getEnglish(); // 使用单词替换query参数值
+
+                    Intent intent = new Intent(requireContext(), WebViewActivity.class);
+                    intent.putExtra("url", url);
                     startActivity(intent);
                 });
             });
