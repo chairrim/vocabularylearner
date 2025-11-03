@@ -1,6 +1,8 @@
 package com.example.vocabularylearner.ui;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,7 +20,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class WordListActivity extends AppCompatActivity {
     private String currentLetter;
     private boolean isChineseVisible = true;
-    private Button btnToggleChinese;
+//    private Button btnToggleChinese;
     private WordListFragment[] fragments = new WordListFragment[2];
 
     @Override
@@ -40,28 +42,28 @@ public class WordListActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(currentLetter + " 开头的单词");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        // 初始化标题
-        TextView tvLetterTitle = findViewById(R.id.tv_letter_title);
-        tvLetterTitle.setText(currentLetter + " 开头的单词");
-
-        // 初始化切换中文按钮
-        btnToggleChinese = findViewById(R.id.btn_toggle_chinese);
-        updateToggleButtonState();
+//
+//        // 初始化标题
+//        TextView tvLetterTitle = findViewById(R.id.tv_letter_title);
+//        tvLetterTitle.setText(currentLetter + " 开头的单词");
+//
+//        // 初始化切换中文按钮
+//        btnToggleChinese = findViewById(R.id.btn_toggle_chinese);
+//        updateToggleButtonState();
 
         // 设置按钮点击事件
         // 替换 btnToggleChinese 的点击事件处理
-        btnToggleChinese.setOnClickListener(v -> {
-            isChineseVisible = !isChineseVisible;
-            updateToggleButtonState();
-
-            // 通过 FragmentManager 获取当前显示的 fragments 并更新状态
-            getSupportFragmentManager().getFragments().forEach(fragment -> {
-                if (fragment instanceof WordListFragment) {
-                    ((WordListFragment) fragment).setChineseVisible(isChineseVisible);
-                }
-            });
-        });
+//        btnToggleChinese.setOnClickListener(v -> {
+//            isChineseVisible = !isChineseVisible;
+//            updateToggleButtonState();
+//
+//            // 通过 FragmentManager 获取当前显示的 fragments 并更新状态
+//            getSupportFragmentManager().getFragments().forEach(fragment -> {
+//                if (fragment instanceof WordListFragment) {
+//                    ((WordListFragment) fragment).setChineseVisible(isChineseVisible);
+//                }
+//            });
+//        });
 
         // 初始化ViewPager2和TabLayout
         ViewPager2 viewPager = findViewById(R.id.view_pager);
@@ -86,19 +88,48 @@ public class WordListActivity extends AppCompatActivity {
         fragments[1] = WordListFragment.newInstance(currentLetter, true);
     }
 
+    // 添加菜单项
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.word_list_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_toggle_chinese) {
+            isChineseVisible = !isChineseVisible;
+
+            // 通过 FragmentManager 获取当前显示的 fragments 并更新状态
+            getSupportFragmentManager().getFragments().forEach(fragment -> {
+                if (fragment instanceof WordListFragment) {
+                    ((WordListFragment) fragment).setChineseVisible(isChineseVisible);
+                }
+            });
+
+            // 更新菜单项文本
+            if (isChineseVisible) {
+                item.setTitle("隐藏中文");
+            } else {
+                item.setTitle("显示中文");
+            }
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     /**
      * 更新切换按钮的图标和文本
      */
-    private void updateToggleButtonState() {
-        if (isChineseVisible) {
-            // 显示状态，按钮文本改为"隐藏中文"
-            btnToggleChinese.setText("隐藏中文");
-        } else {
-            // 隐藏状态，按钮文本改为"显示中文"
-            btnToggleChinese.setText("显示中文");
-        }
-    }
+//    private void updateToggleButtonState() {
+//        if (isChineseVisible) {
+//            // 显示状态，按钮文本改为"隐藏中文"
+//            btnToggleChinese.setText("隐藏中文");
+//        } else {
+//            // 隐藏状态，按钮文本改为"显示中文"
+//            btnToggleChinese.setText("显示中文");
+//        }
+//    }
     @Override
     public boolean onSupportNavigateUp() {
         // 处理返回按钮
